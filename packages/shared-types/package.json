@@ -1,0 +1,17 @@
+{
+  "name": "shared-types",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsc -w"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@repo/config": "workspace:*",
+    "class-validator": "^0.14.1"
+  }
+}
