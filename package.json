@@ -1,0 +1,23 @@
+{
+  "name": "helpinho-monorepo",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "start": "turbo dev",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5",
+    "turbo": "^2.0.4",
+    "typescript": "^5.4.5"
+  },
+  "packageManager": "pnpm@9.1.4",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@repo/config": "workspace:*"
+  }
+}
