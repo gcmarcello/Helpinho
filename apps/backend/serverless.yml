@@ -1,0 +1,127 @@
+org: marcellogc
+app: helpinho
+service: helpinho
+
+plugins:
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    host: 0.0.0.0
+    noPrependStageInUrl: true
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - s3:ListBucket
+        - s3:GetObject
+        - s3:PutObject
+        - s3:PutObjectAcl
+        - s3:GetObjectAcl
+      Resource:
+        - arn:aws:dynamodb:${self:provider.region}:*:table/users
+        - arn:aws:dynamodb:${self:provider.region}:*:table/users/index/*
+        - arn:aws:dynamodb:${self:provider.region}:*:table/helpinhos
+        - arn:aws:dynamodb:${self:provider.region}:*:table/helpinhos/index/*
+        - arn:aws:dynamodb:${self:provider.region}:*:table/helps
+        - arn:aws:dynamodb:${self:provider.region}:*:table/helps/index/*
+        - arn:aws:s3:::helpinho-uploads-m/*
+
+functions:
+  main:
+    handler: dist/main.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+      - http:
+          method: ANY
+          path: "{proxy+}"
+
+resources:
+  Resources:
+    usersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: users
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: email
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: EmailIndex
+            KeySchema:
+              - AttributeName: email
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST
+    helpinhosTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: helpinhos
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: UserIdIndex
+            KeySchema:
+              - AttributeName: userId
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST
+    helpsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: helps
+        AttributeDefinitions:
+          - AttributeName: helpinhoId
+            AttributeType: S
+          - AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: helpinhoId
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: UserIdIndex
+            KeySchema:
+              - AttributeName: userId
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST
+    uploadBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: helpinho-uploads-m
+        CorsConfiguration:
+          CorsRules:
+            - AllowedHeaders:
+                - "*"
+              AllowedMethods:
+                - GET
+                - HEAD
+                - PUT
+              AllowedOrigins:
+                - "*"

@@ -5,10 +5,6 @@ node_modules
 .pnp
 .pnp.js
 
-# Serverless Config
-apps/backend/serverless.yml
-apps/backend/src/handlers/
-
 # Local env files
 .env
 .env.local
