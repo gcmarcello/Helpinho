@@ -1,5 +1,5 @@
-export type JwtPayload = {
-  userId: string;
+export type UserSession = {
+  id: string;
   iat: number;
   exp: number;
   name: string;
