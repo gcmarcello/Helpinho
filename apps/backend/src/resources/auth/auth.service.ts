@@ -3,8 +3,9 @@
 import { Injectable } from "@nestjs/common";
 import * as bcrypt from "bcrypt";
 import * as jose from "jose";
-import { LoginDto, SignupDto } from "shared-types";
+import { UserSession, LoginDto, SignupDto } from "shared-types";
 import { UserService } from "../users/users.service";
+import { FormError } from "../../infrastructure/errors/form-error";
 
 @Injectable()
 export class AuthService {
@@ -13,12 +14,11 @@ export class AuthService {
   async login(data: LoginDto) {
     const user = await this.userService.findUserByEmail(data.email);
 
-    if (!user) throw new Error("Usuário não encontrado.");
+    if (!user) throw new FormError("Usuário não encontrado", ["email"]);
 
     const hashCompare = await bcrypt.compare(data.password, user.password);
 
-    if (!hashCompare)
-      throw { message: "Senha inválida.", fields: ["password"] };
+    if (!hashCompare) throw new FormError("Senha inválida", ["password"]);
 
     const { password, phone, email, ...userData } = user;
 
@@ -33,10 +33,7 @@ export class AuthService {
     const user = await this.userService.findUserByEmail(data.email);
 
     if (user)
-      throw {
-        message: "Email já utilizado por outro usuário.",
-        fields: ["email"],
-      };
+      throw new FormError("Email já utilizado por outro usuário", ["email"]);
 
     const createdUser = await this.userService.createUser(data);
 
