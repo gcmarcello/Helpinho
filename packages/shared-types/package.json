@@ -11,9 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@repo/config": "workspace:*",
+    "@repo/config": "*",
     "@ferstack/libuilderjs": "5.1.1",
-    "dynamoose": "4.0.1",
     "class-validator": "^0.14.1"
   }
 }
