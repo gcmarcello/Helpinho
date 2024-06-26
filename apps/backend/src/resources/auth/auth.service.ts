@@ -46,20 +46,17 @@ export class AuthService {
     };
   }
 
-  async createToken(
-    user: { id: string; name: string },
-    remember: boolean = false
-  ) {
+  async createToken(payload: { id: string; name: string; remember?: boolean }) {
     if (!process.env.JWT_SECRET) throw new Error("JWT_SECRET not defined");
 
     const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
-    return new jose.SignJWT(user)
+    return new jose.SignJWT(payload)
       .setProtectedHeader({ alg: "HS256" })
       .setIssuedAt()
       .setIssuer("auth")
       .setAudience("api")
-      .setExpirationTime(remember ? "30d" : "1d")
+      .setExpirationTime(payload?.remember ? "30d" : "1d")
       .sign(secret);
   }
 }
