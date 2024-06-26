@@ -10,14 +10,19 @@
   },
   "devDependencies": {
     "prettier": "^3.2.5",
+    "nodemon": "^3.1.4",
     "turbo": "^2.0.4",
     "typescript": "^5.4.5"
   },
-  "packageManager": "pnpm@9.1.4",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "packageManager": "yarn@1.22.11",
   "engines": {
     "node": ">=18"
   },
   "dependencies": {
-    "@repo/config": "workspace:*"
+    "@repo/config": "*"
   }
 }
