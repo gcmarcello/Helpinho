@@ -2,16 +2,17 @@
   "name": "shared-types",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsc -w"
+    "dev": "libuilder --watch ./libuilder.mjs & tsc -w"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@repo/config": "workspace:*",
+    "@ferstack/libuilderjs": "5.1.1",
     "dynamoose": "4.0.1",
     "class-validator": "^0.14.1"
   }
