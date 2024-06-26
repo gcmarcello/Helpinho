@@ -1,8 +1,8 @@
 import { CommonModule } from "@angular/common";
 import { Component, Input, OnInit, ViewEncapsulation } from "@angular/core";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { parseInputErrors } from "../utils/error-handling";
 import { ClassValidatorFormGroup } from "ngx-reactive-form-class-validator";
+import { parseInputErrors } from "../../../utils/form";
 
 @Component({
   selector: "app-input",

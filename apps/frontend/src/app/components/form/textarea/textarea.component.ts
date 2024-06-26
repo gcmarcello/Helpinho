@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { Component, Input, OnInit, ViewEncapsulation } from "@angular/core";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { parseInputErrors } from "../utils/error-handling";
+import { parseInputErrors } from "../../../utils/form";
 
 @Component({
   selector: "app-textarea",

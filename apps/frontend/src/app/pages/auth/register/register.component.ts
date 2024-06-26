@@ -10,7 +10,6 @@ import { ButtonComponent } from "../../../components/button/button.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { CheckboxComponent } from "../../../components/form/checkbox/checkbox.component";
 import { InputComponent } from "../../../components/form/input/input.component";
-import { parseInputErrors } from "../../../components/form/utils/error-handling";
 
 @Component({
   selector: "app-register",
