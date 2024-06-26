@@ -1,0 +1,25 @@
+<ng-container *ngIf="!href; else linkTemplate">
+  <button
+    [type]="type"
+    [disabled]="loading || disabled"
+    [ngClass]="getCombinedClasses()"
+    (click)="onClick()"
+  >
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+  </button>
+</ng-container>
+
+<ng-template #linkTemplate>
+  <a
+    [routerLink]="href"
+    [target]="target"
+    routerLinkActive="active"
+    [ngClass]="getCombinedClasses()"
+  >
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+  </a>
+</ng-template>
+
+<ng-template #content>
+  <ng-content></ng-content>
+</ng-template>
