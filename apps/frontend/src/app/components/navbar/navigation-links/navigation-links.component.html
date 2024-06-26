@@ -1,0 +1,30 @@
+<nav
+  class="col-span-1 hidden items-center justify-center gap-16 text-xl font-semibold text-neutral-500 lg:flex"
+>
+  @for (link of links; track link.name) {
+    <a
+      *ngIf="link.url"
+      routerLink="{{ link.url }}"
+      class="hover:text-primary-500 border-primary-500 cursor-pointer hover:border-b-2"
+      [ngClass]="{
+        'text-primary-500 border-b-2':
+          activeLink.url && link.url === activeLink.url,
+        'text-neutral-500': activeLink.url && link.url !== activeLink.url,
+      }"
+    >
+      {{ link.name }}
+    </a>
+    <a
+      *ngIf="link.nav"
+      href="#{{ link.nav }}"
+      class="hover:text-primary-500 border-primary-500 cursor-pointer hover:border-b-2"
+      [ngClass]="{
+        'text-primary-500 border-b-2':
+          activeLink.url && link.url === activeLink.url,
+        'text-neutral-500': activeLink.url && link.url !== activeLink.url,
+      }"
+    >
+      {{ link.name }}
+    </a>
+  }
+</nav>
