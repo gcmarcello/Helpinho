@@ -4,6 +4,7 @@ service: helpinho
 
 plugins:
   - serverless-offline
+  - serverless-plugin-monorepo
 
 custom:
   serverless-offline:
