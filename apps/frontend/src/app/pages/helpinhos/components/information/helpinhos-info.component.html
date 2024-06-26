@@ -1,0 +1,19 @@
+<div class="text-lg font-bold text-neutral-900">Fale um pouco mais</div>
+<div class="font-light">
+  Diga as pessoas mais detalhes dobre helpinho, não economize nas palavras.
+</div>
+<div class="mt-8">
+  <app-input [formGroup]="formGroup" label="Título" name="title" />
+  <app-file-input
+    [accept]="['JPEG', 'JPG', 'PNG']"
+    [formGroup]="formGroup"
+    label="Foto"
+    name="image"
+  />
+  <app-textarea
+    [formGroup]="formGroup"
+    placeholder="Escreva a descrição do seu helpinho, não economize nas palavras."
+    label="Descrição"
+    name="description"
+  />
+</div>

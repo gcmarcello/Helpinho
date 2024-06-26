@@ -1,0 +1,28 @@
+<div class="text-lg font-bold text-neutral-900">
+  Em que categoria está seu helpinho?
+</div>
+<div class="font-light">
+  Escolha pelo menos uma das categorias abaixo que represente mais o seu
+  helpinho.
+</div>
+<div *ngIf="formGroup" class="mt-8 flex flex-wrap justify-evenly gap-4">
+  @for (category of cats; track category.id) {
+    <div class="flex">
+      <input
+        (change)="toggleCategory(category.id)"
+        [checked]="formGroup.value.categories.includes(category.id)"
+        type="checkbox"
+        [id]="category.id"
+        name="categories"
+        class="peer hidden"
+      />
+      <label
+        [for]="category.id"
+        class="peer-checked:border-primary-600 flex min-w-[124px] cursor-pointer select-none flex-col items-center justify-center rounded-lg border-2 border-gray-200 p-6 font-light text-neutral-700 transition-colors duration-200 ease-in-out peer-checked:font-bold lg:min-w-[144px]"
+      >
+        <img [src]="category.icon" />
+        <div>{{ category.name }}</div>
+      </label>
+    </div>
+  }
+</div>

@@ -1,0 +1,27 @@
+<div class="text-lg font-bold text-neutral-900">Quanto você precisa?</div>
+<div class="font-light">
+  Defina a meta que você quer alcançar com seu helpinho.
+</div>
+<div [formGroup]="formGroup" class="mt-8 flex flex-wrap justify-evenly gap-4">
+  @for (goal of gls; track goal.value) {
+    <div class="flex">
+      <input
+        [formGroup]="formGroup"
+        [value]="goal.value"
+        [checked]="formGroup.value.goal === goal.value"
+        type="radio"
+        [id]="goal.value"
+        name="goal"
+        formControlName="goal"
+        class="peer hidden"
+      />
+      <label
+        [for]="goal.value"
+        class="peer-checked:border-primary-600 flex min-w-[124px] cursor-pointer select-none flex-col items-center justify-center rounded-lg border-2 border-gray-200 p-6 font-light text-neutral-700 transition-colors duration-200 ease-in-out peer-checked:font-bold lg:min-w-[144px]"
+      >
+        <img src="/icons/rocket.svg" />
+        <div>{{ goal.name }}</div>
+      </label>
+    </div>
+  }
+</div>

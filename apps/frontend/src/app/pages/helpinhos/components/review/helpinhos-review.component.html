@@ -1,0 +1,50 @@
+<div class="text-lg font-bold text-neutral-900">Falta pouco...</div>
+<div class="font-light">
+  Revise se seu helpinho está como você gostaria antes de publica-lo para todos.
+</div>
+
+<div class="divide-y">
+  <div class="py-2">
+    <div class="my-4 text-lg font-bold text-neutral-900">Nome</div>
+    <div class="font-light">
+      {{ formGroup.value.title }}
+    </div>
+  </div>
+
+  <div class="py-2">
+    <div class="my-4 text-lg font-bold text-neutral-900">Descrição</div>
+    <div class="font-light">
+      {{ formGroup.value.description }}
+    </div>
+  </div>
+
+  <div class="py-2">
+    <div class="my-4 text-lg font-bold text-neutral-900">Categorias</div>
+    <div class="flex flex-wrap gap-4">
+      @for (category of retrieveSelectedCategories(); track category) {
+        <div class="flex">
+          <div
+            class="border-primary-600 flex min-w-[124px] cursor-pointer select-none flex-col items-center justify-center rounded-lg border-2 p-6 font-light text-neutral-700 transition-colors duration-200 ease-in-out peer-checked:font-bold lg:min-w-[144px]"
+          >
+            <img [src]="category.icon" />
+            <div>{{ category.name }}</div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="py-2">
+    <div class="my-4 text-lg font-bold text-neutral-900">Meta</div>
+    <div class="flex flex-wrap gap-4">
+      <div class="flex">
+        <div
+          class="border-primary-600 flex min-w-[124px] cursor-pointer select-none flex-col items-center justify-center rounded-lg border-2 p-6 font-light text-neutral-700 transition-colors duration-200 ease-in-out peer-checked:font-bold lg:min-w-[144px]"
+        >
+          <img src="/icons/rocket.svg" />
+          <div>{{ formGroup.value.goal }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
