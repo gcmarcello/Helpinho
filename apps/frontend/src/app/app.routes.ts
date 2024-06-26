@@ -15,6 +15,11 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: "helpinho/:id",
+    component: HelpinhosComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: "auth",
     component: AuthComponent,
     children: [
