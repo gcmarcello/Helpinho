@@ -1,0 +1,28 @@
+<div *ngIf="helpinhos" class="px-4 lg:px-16 xl:px-36">
+  <div class="col-span-full">
+    <form
+      [formGroup]="searchForm"
+      class="flex w-full flex-col items-center gap-x-4 px-2 lg:flex-row lg:space-y-0 lg:space-y-4"
+    >
+      <app-searchbox
+        label="Pesquisa"
+        placeholder="Pesquise o que você quer dar um helpinho"
+        class="w-full grow"
+        [formGroup]="searchForm"
+        name="title"
+      />
+      <app-select
+        label="Categoria"
+        class="w-full"
+        [formGroup]="searchForm"
+        name="category"
+        [options]="categories"
+      />
+    </form>
+  </div>
+  <div class="grid gap-12 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    @for (helpinho of helpinhos; track helpinho.id) {
+      <app-helpinho-card [helpinho]="helpinho" />
+    }
+  </div>
+</div>
