@@ -38,6 +38,8 @@ provider:
         - arn:aws:dynamodb:${self:provider.region}:*:table/helps
         - arn:aws:dynamodb:${self:provider.region}:*:table/helps/index/*
         - arn:aws:s3:::helpinho-uploads-m/*
+  environment:
+    AWS_REGION: ${env:AWS_REGION}
 
 functions:
   main:
