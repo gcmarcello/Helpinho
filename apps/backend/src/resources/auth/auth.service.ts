@@ -59,4 +59,16 @@ export class AuthService {
       .setExpirationTime(payload?.remember ? "30d" : "1d")
       .sign(secret);
   }
+  async validateToken(token: string): Promise<UserSession | null> {
+    if (!process.env.JWT_SECRET) throw new Error("JWT_SECRET not defined");
+
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+
+    const userSession = await jose
+      .jwtVerify(token, secret)
+      .then((r) => r.payload as UserSession)
+      .catch(() => null);
+
+    return userSession;
+  }
 }
