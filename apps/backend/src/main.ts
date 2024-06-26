@@ -1,8 +1,8 @@
 import { NestFactory } from "@nestjs/core";
-import serverlessExpress from "@codegenie/serverless-express";
-import { Callback, Context, Handler } from "aws-lambda";
 import { AppModule } from "./app.module";
-import * as dynamoose from "dynamoose";
+import { Callback, Context, Handler } from "aws-lambda";
+import { configure } from "@codegenie/serverless-express";
+import { FormErrorFilter } from "./infrastructure/filters/form-error.filter";
 
 let server: Handler;
 
@@ -13,8 +13,9 @@ async function bootstrap() {
 
   await app.init();
 
-  const expressApp = app.getHttpAdapter().getInstance();
-  return serverlessExpress({ app: expressApp });
+  const expressHandler = app.getHttpAdapter().getInstance();
+
+  return configure({ app: expressHandler });
 }
 
 export const handler: Handler = async (
