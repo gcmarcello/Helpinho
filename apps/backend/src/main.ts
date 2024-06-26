@@ -6,12 +6,8 @@ import * as dynamoose from "dynamoose";
 
 let server: Handler;
 
-async function bootstrap(): Promise<Handler> {
-  const app = await NestFactory.create(AppModule);
-
-  const ddb = new dynamoose.aws.ddb.DynamoDB({
-    region: "us-east-1",
-  });
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule, { cors: true });
 
   app.useGlobalFilters(new FormErrorFilter());
 
