@@ -1,0 +1,28 @@
+<ng-container [formGroup]="formGroup">
+  <label
+    [for]="name"
+    class="block text-sm font-medium leading-6 text-neutral-900"
+  >
+    {{ label }}
+  </label>
+  <div class="mb-5 mt-2">
+    <textarea
+      (change)="parseInputErrors(formGroup, name)"
+      [name]="name"
+      [id]="name"
+      [placeholder]="placeholder"
+      [formControlName]="name"
+      [ngClass]="getInputStyle()"
+      rows="{4}"
+    ></textarea>
+    <p
+      *ngIf="
+        formGroup.controls[name].errors && formGroup.controls[name].touched
+      "
+      class="mt-2 text-sm text-red-600"
+      id="email-error"
+    >
+      {{ parseInputErrors(formGroup, name) }}
+    </p>
+  </div>
+</ng-container>

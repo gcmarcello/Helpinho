@@ -1,0 +1,29 @@
+<ng-container [formGroup]="formGroup">
+  <label
+    [for]="name"
+    class="block text-sm font-medium leading-6 text-neutral-900"
+  >
+    {{ label }}
+  </label>
+  <div class="relative mb-5 mt-2">
+    <img class="absolute bottom-[0.85rem] left-2" src="search.png" />
+    <input
+      (change)="parseInputErrors(formGroup, name)"
+      [type]="inputType"
+      [name]="name"
+      [id]="name"
+      [placeholder]="placeholder"
+      [formControlName]="name"
+      [ngClass]="getInputStyle()"
+    />
+    <p
+      *ngIf="
+        formGroup.controls[name].errors && formGroup.controls[name].touched
+      "
+      class="mt-2 text-sm text-red-600"
+      id="email-error"
+    >
+      {{ parseInputErrors(formGroup, name) }}
+    </p>
+  </div>
+</ng-container>

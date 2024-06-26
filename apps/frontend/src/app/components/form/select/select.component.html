@@ -1,0 +1,33 @@
+<ng-container [formGroup]="formGroup">
+  <label
+    [for]="name"
+    class="block text-sm font-medium leading-6 text-neutral-900"
+  >
+    {{ label }}
+  </label>
+  <div class="mb-5 mt-2">
+    <select
+      (change)="parseInputErrors(formGroup, name)"
+      type="select"
+      [name]="name"
+      [id]="name"
+      [formControlName]="name"
+      [ngClass]="getInputStyle()"
+    >
+      <option>Selecionar</option>
+      @for (option of options; track option.value) {
+        <option [value]="option.value">{{ option.label }}</option>
+      }
+    </select>
+
+    <p
+      *ngIf="
+        formGroup.controls[name].errors && formGroup.controls[name].touched
+      "
+      class="mt-2 text-sm text-red-600"
+      id="email-error"
+    >
+      {{ parseInputErrors(formGroup, name) }}
+    </p>
+  </div>
+</ng-container>

@@ -1,0 +1,16 @@
+<ng-container [formGroup]="formGroup"
+  ><div class="relative flex items-start">
+    <div class="flex h-6 items-center">
+      <input
+        type="checkbox"
+        [name]="name"
+        [id]="name"
+        [formControlName]="name"
+        class="text-primary-700 focus:ring-primary-700 h-4 w-4 rounded border-gray-300"
+      />
+    </div>
+    <div class="ml-3 text-sm leading-6">
+      <label [for]="name" class="font-medium text-gray-900">{{ label }}</label>
+    </div>
+  </div></ng-container
+>
