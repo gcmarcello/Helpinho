@@ -1,0 +1,50 @@
+<div class="mx-auto w-full max-w-sm lg:w-96">
+  <div class="flex flex-col justify-center">
+    <h2
+      class="mt-8 text-2xl font-bold tracking-tight text-neutral-900 lg:text-3xl"
+    >
+      Registre-se Grátis
+    </h2>
+    <p class="mt-2 text-sm leading-6 text-neutral-500">
+      Seja bem vindo! Estamos felizes em tê-lo na nossa rede de apoio.
+    </p>
+  </div>
+  <div class="mt-10">
+    <form [formGroup]="profileForm" (ngSubmit)="register()" class="space-y-4">
+      <app-input [formGroup]="profileForm" label="Nome" name="name" />
+      <app-input [formGroup]="profileForm" label="Email" name="email" />
+      <app-input
+        [formGroup]="profileForm"
+        label="Telefone"
+        name="phone"
+        inputmode="tel"
+      />
+      <app-input
+        [formGroup]="profileForm"
+        name="password"
+        label="Senha"
+        inputType="password"
+      />
+
+      <div class="space-y-4">
+        <app-button
+          type="submit"
+          [loading]="loading()"
+          class="w-full rounded-md"
+          >Entrar</app-button
+        >
+      </div>
+    </form>
+
+    <div class="mt-10">
+      <div class="mt-4 flex justify-center">
+        <p class="mt-2 text-sm leading-6 text-neutral-500">
+          Já tem uma conta?
+          <a routerLink="/auth/login" class="text-primary-700 font-semibold"
+            >Faça login.</a
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
