@@ -13,7 +13,7 @@ async function bootstrap(): Promise<Handler> {
     region: "us-east-1",
   });
 
-  dynamoose.aws.ddb.set(ddb);
+  app.useGlobalFilters(new FormErrorFilter());
 
   await app.init();
 
