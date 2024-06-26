@@ -43,11 +43,9 @@ functions:
     handler: dist/main.handler
     events:
       - http:
-          method: ANY
-          path: /
-      - http:
-          method: ANY
-          path: "{proxy+}"
+          method: any
+          path: /{any+}
+          cors: true
 
 resources:
   Resources:
