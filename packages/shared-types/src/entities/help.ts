@@ -1,14 +1,8 @@
-import * as dynamoose from "dynamoose";
-import { Item } from "dynamoose/dist/Item";
+import { User } from "./user";
 
-export interface Help extends Item {
+export interface Help {
   amount: string;
   helpinhoId: string;
   userId: string;
+  user?: User;
 }
-
-export const HelpModel = dynamoose.model<Help>("help", {
-  amount: String,
-  helpinhoId: String,
-  userId: String,
-});
