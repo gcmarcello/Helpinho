@@ -18,6 +18,8 @@ export function handleFormErrors(
         form.controls[field].setErrors({ invalid: error.error.message });
       }
     }
+  } else {
+    form.setErrors({ invalid: error.error.message });
   }
   return EMPTY;
 }
