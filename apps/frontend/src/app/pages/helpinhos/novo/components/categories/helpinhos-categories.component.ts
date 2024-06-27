@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
-import { categories } from "../../constants/categories";
+import { categories } from "../../../../../constants/categories";
 import {
   ClassValidatorFormBuilderModule,
   ClassValidatorFormGroup,

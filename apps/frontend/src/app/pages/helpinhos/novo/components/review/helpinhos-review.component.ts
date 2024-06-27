@@ -2,7 +2,7 @@ import { CommonModule } from "@angular/common";
 import { Component, Input } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { goals } from "../../constants/goals";
-import { categories } from "../../constants/categories";
+import { categories } from "../../../../../constants/categories";
 import { ClassValidatorFormGroup } from "ngx-reactive-form-class-validator";
 
 @Component({
