@@ -9,7 +9,7 @@ import { HeroNoAuthComponent } from "./components/hero-noauth/hero-noauth.compon
 import { HeroAuthComponent } from "./components/hero-auth/hero-auth.component";
 import { CommonModule } from "@angular/common";
 import { InfoComponent } from "./components/info/info.component";
-import { HelpinhoListComponent } from "../search/components/helpinho-list/helpinho-list.component";
+import { HelpinhoListComponent } from "./components/search/components/helpinho-list/helpinho-list.component";
 
 @Component({
   selector: "app-home",
