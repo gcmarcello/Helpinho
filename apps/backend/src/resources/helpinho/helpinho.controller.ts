@@ -2,12 +2,18 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
+  Query,
   Request,
   UseGuards,
 } from "@nestjs/common";
 import { HelpinhoService } from "./helpinho.service";
-import { ServerCreateHelpinhoDto, UserSession } from "shared-types";
+import {
+  ListHelpinhoQuery,
+  ServerCreateHelpinhoDto,
+  UserSession,
+} from "shared-types";
 import { AuthGuard } from "../auth/auth.guard";
 
 @Controller("helpinho")
@@ -25,15 +31,20 @@ export class HelpinhoController {
       userId: req.user.id,
     });
   }
+
   @UseGuards(AuthGuard)
-  @Get()
+  @Get("own")
   getOwnInfo(@Request() req: { user: UserSession }) {
-    console.log(req.user.id);
     return this.helpinhoService.getUserHelpinhos(req.user.id);
   }
 
-  @Get("all")
-  getAllInfo() {
-    return this.helpinhoService.getHelpinhos();
+  @Get()
+  getAllInfo(@Query() query: ListHelpinhoQuery) {
+    return this.helpinhoService.getHelpinhos(query);
+  }
+
+  @Get(":id")
+  getHelpinhoFromId(@Param("id") id: string) {
+    return this.helpinhoService.getHelpinhoFromId(id);
   }
 }
