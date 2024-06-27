@@ -9,7 +9,7 @@ export class FilesService {
   }
 
   async createUploadLink(data: GetUploadLinkDto) {
-    const bucketName = process.env.BUCKET_NAME;
+    const bucketName = process.env.S3_BUCKET_NAME;
 
     const url = await this.bucket.getSignedUrl({
       Bucket: bucketName,
