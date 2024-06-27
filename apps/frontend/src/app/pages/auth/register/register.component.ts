@@ -46,6 +46,7 @@ export class RegisterComponent {
   ) {}
 
   async register() {
+    if (this.profileForm.invalid) return;
     this.loading.set(true);
     this.authService.signup(this.profileForm).subscribe({
       next: (result) => {

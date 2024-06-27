@@ -43,6 +43,7 @@ export class LoginComponent {
   ) {}
 
   async login() {
+    if (this.profileForm.invalid) return;
     this.loading.set(true);
     this.authService.login(this.profileForm).subscribe({
       next: (result) => {
