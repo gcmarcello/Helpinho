@@ -5,7 +5,7 @@ import {
   RouterStateSnapshot,
   Router,
 } from "@angular/router";
-import { Observable, map } from "rxjs";
+import { Observable, map, tap } from "rxjs";
 import { AuthService } from "../services/auth.service";
 
 export const AuthGuard: CanActivateFn = (
@@ -16,8 +16,8 @@ export const AuthGuard: CanActivateFn = (
   const router = inject(Router);
 
   return authService.tokenStore$.pipe(
-    map((user) => {
-      if (!user) {
+    map((session) => {
+      if (!session) {
         router.navigate(["/auth/login"]);
         return false;
       }
@@ -31,6 +31,15 @@ export const AuthPageGuard: CanActivateFn = (
   state: RouterStateSnapshot
 ) => {
   const router = inject(Router);
+  const authService = inject(AuthService);
+
+  authService.tokenStore$.subscribe((session: string) => {
+    if (session) {
+      router.navigate(["/"]);
+      return false;
+    }
+    return true;
+  });
 
   if (state.url === "/auth") {
     router.navigate(["/auth/login"]);
