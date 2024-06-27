@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AuthService } from "./auth.service";
-import { catchError, map, switchMap } from "rxjs";
+import { catchError, map, switchMap, tap } from "rxjs";
 import { ClassValidatorFormGroup } from "ngx-reactive-form-class-validator";
 import {
   ClientCreateHelpinhoDto,
@@ -15,6 +15,7 @@ import {
   Helpinho,
   UserHelpHelpinhoResponse,
 } from "shared-types";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: "root",
@@ -51,7 +52,7 @@ export class HelpinhoService {
 
   getUserHelpsAndHelpinhos() {
     return this.http.get<UserHelpHelpinhoResponse>(
-      environment.apiUrl + "/helpinho",
+      environment.apiUrl + "/helpinho/own",
       {
         headers: {
           Authorization: this.authService.captureSession(),
@@ -60,7 +61,13 @@ export class HelpinhoService {
     );
   }
 
-  list() {
-    return this.http.get<Helpinho[]>(environment.apiUrl + "/helpinho/all");
+  getHelpinho(id: string) {
+    return this.http.get<Helpinho>(environment.apiUrl + "/helpinho/" + id);
+  }
+
+  list(query: { title?: string; category?: string; cursor?: string } = {}) {
+    return this.http.get<Helpinho[]>(
+      environment.apiUrl + "/helpinho?" + new URLSearchParams(query)
+    );
   }
 }
