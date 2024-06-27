@@ -50,10 +50,7 @@ export class GetHelpinhoDto {
 }
 
 export class ListHelpinhoQuery {
-  @IsString()
   title?: string;
-  @IsString()
   category?: string;
-  @IsString()
   cursor?: string;
 }

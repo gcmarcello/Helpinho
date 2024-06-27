@@ -32,6 +32,7 @@
     "aws-lambda": "^1.0.7",
     "aws-serverless-express": "3.4.0",
     "bcrypt": "5.1.1",
+    "class-transformer": "^0.5.1",
     "dotenv": "16.4.5",
     "jose": "^5.4.1",
     "reflect-metadata": "^0.2.0",
