@@ -9,15 +9,19 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import "dotenv/config";
 
 const devClient = new S3Client({
-  region: process.env.AWS_REGION!,
+  region: process.env.DEV_AWS_REGION!,
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-    secretAccessKey: process.env.AWS_SECRET!,
+    accessKeyId: process.env.DEV_AWS_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.DEV_AWS_SECRET!,
   },
 });
 
 const prodClient = new S3Client({
   region: process.env.AWS_REGION!,
+  credentials: {
+    accessKeyId: process.env.PROD_AWS_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.PROD_AWS_SECRET!,
+  },
 });
 
 export class Bucket {

@@ -1,4 +1,5 @@
 import {
+  BatchGetItemCommand,
   GetItemCommand,
   PutItemCommand,
   QueryCommand,
@@ -6,18 +7,22 @@ import {
 } from "@aws-sdk/client-dynamodb";
 import { unmarshall } from "@aws-sdk/util-dynamodb";
 import { DynamoDB } from "@aws-sdk/client-dynamodb";
-import "dotenv/config";
+import "./env";
 
 const devClient = new DynamoDB({
-  region: process.env.AWS_REGION!,
+  region: process.env.DEV_AWS_REGION,
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-    secretAccessKey: process.env.AWS_SECRET!,
+    accessKeyId: process.env.DEV_AWS_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.DEV_AWS_SECRET!,
   },
 });
 
 const prodClient = new DynamoDB({
-  region: process.env.AWS_REGION!,
+  region: process.env.PROD_AWS_REGION,
+  credentials: {
+    accessKeyId: process.env.PROD_AWS_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.PROD_AWS_SECRET!,
+  },
 });
 
 const client = process.env.NODE_ENV === "production" ? prodClient : devClient;
@@ -58,10 +63,25 @@ export const dynamo = () => {
     return items.map((i) => unmarshall(i));
   }
 
+  async function batchGet(params: BatchGetItemCommand["input"]) {
+    const result = await client.batchGetItem(params);
+    return result;
+  }
+
   return {
     putItem,
     getItem,
     query,
     scan,
+    batchGet,
   };
 };
+
+export const tableName = (model: string) =>
+  `helpinho-${model}-${process.env.NODE_ENV}`;
+
+export const usersTable = tableName("users");
+
+export const helpinhosTable = tableName("helpinhos");
+
+export const helpsTable = tableName("helps");
