@@ -1,0 +1,137 @@
+<div *ngIf="helpinhos" class="px-4 lg:px-16 xl:px-36">
+  <div class="col-span-full">
+    <form
+      [formGroup]="searchForm"
+      class="flex w-full flex-col items-start gap-y-4 sm:gap-x-4 lg:flex-row"
+    >
+      <app-searchbox
+        label="Pesquisa"
+        placeholder="Pesquise o que você quer dar um helpinho"
+        class="w-full grow"
+        [formGroup]="searchForm"
+        name="title"
+      />
+      <app-select
+        label="Categoria"
+        class="w-full sm:max-w-56"
+        [formGroup]="searchForm"
+        name="category"
+        [options]="categories"
+      />
+    </form>
+  </div>
+
+  <div
+    *ngIf="isHelpinhoLoading"
+    class="bg-primary-100 text-primary-700 z-50 mb-3 mt-3 inline-flex w-full items-center gap-2 text-nowrap rounded-md p-1.5 text-xs font-semibold lg:w-auto"
+  >
+    <svg
+      width="24"
+      class="stroke-red-700"
+      height="24"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <style>
+        .spinner_qM83 {
+          animation: spinner_8HQG 1.05s infinite;
+        }
+        .spinner_oXPr {
+          animation-delay: 0.1s;
+        }
+        .spinner_ZTLf {
+          animation-delay: 0.2s;
+        }
+        @keyframes spinner_8HQG {
+          0%,
+          57.14% {
+            animation-timing-function: cubic-bezier(0.33, 0.66, 0.66, 1);
+            transform: translate(0);
+          }
+          28.57% {
+            animation-timing-function: cubic-bezier(0.33, 0, 0.66, 0.33);
+            transform: translateY(-6px);
+          }
+          100% {
+            transform: translate(0);
+          }
+        }
+      </style>
+      <circle class="spinner_qM83" cx="4" cy="12" r="3" />
+      <circle class="spinner_qM83 spinner_oXPr" cx="12" cy="12" r="3" />
+      <circle class="spinner_qM83 spinner_ZTLf" cx="20" cy="12" r="3" />
+    </svg>
+    Carregando mais helpinhos
+  </div>
+
+  <div
+    class="relative mt-4 grid gap-12 pb-12 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+  >
+    <div
+      *ngIf="isHelpinhoLoading"
+      class="absolute z-40 flex h-full w-full flex-col items-center justify-center rounded-2xl backdrop-blur"
+    ></div>
+
+    @for (helpinho of helpinhos; track helpinho.id) {
+      <app-helpinho-card [helpinho]="helpinho" />
+    } @empty {
+      <div class="flex w-full">
+        <p class="text-lg text-gray-500">Nenhum helpinho encontrado</p>
+      </div>
+    }
+  </div>
+
+  <div
+    *ngIf="exhaustedHelpinhos && helpinhos.length"
+    class="flex w-full justify-center"
+  >
+    <div
+      class="bg-primary-100 text-primary-700 rounded-xl p-3 text-xs font-semibold"
+    >
+      Os helpinhos acabaram
+    </div>
+  </div>
+
+  <div
+    *ngIf="isInfiniteScrollLoading"
+    class="bg-primary-100 text-primary-700 z-50 mb-3 inline-flex w-full items-center gap-2 text-nowrap rounded-md p-1.5 text-xs font-semibold lg:w-auto"
+  >
+    <svg
+      width="24"
+      class="stroke-red-700"
+      height="24"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <style>
+        .spinner_qM83 {
+          animation: spinner_8HQG 1.05s infinite;
+        }
+        .spinner_oXPr {
+          animation-delay: 0.1s;
+        }
+        .spinner_ZTLf {
+          animation-delay: 0.2s;
+        }
+        @keyframes spinner_8HQG {
+          0%,
+          57.14% {
+            animation-timing-function: cubic-bezier(0.33, 0.66, 0.66, 1);
+            transform: translate(0);
+          }
+          28.57% {
+            animation-timing-function: cubic-bezier(0.33, 0, 0.66, 0.33);
+            transform: translateY(-6px);
+          }
+          100% {
+            transform: translate(0);
+          }
+        }
+      </style>
+      <circle class="spinner_qM83" cx="4" cy="12" r="3" />
+      <circle class="spinner_qM83 spinner_oXPr" cx="12" cy="12" r="3" />
+      <circle class="spinner_qM83 spinner_ZTLf" cx="20" cy="12" r="3" />
+    </svg>
+    Carregando mais helpinhos
+  </div>
+</div>
