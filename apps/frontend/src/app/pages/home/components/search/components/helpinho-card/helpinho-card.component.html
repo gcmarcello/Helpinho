@@ -1,0 +1,98 @@
+<div class="rounded-2xl shadow-lg">
+  <div
+    class="relative min-h-[230px] w-full rounded-t-2xl bg-cover"
+    [ngStyle]="{ 'background-image': 'url(' + helpinho.image + ')' }"
+  >
+    >
+    <div class="absolute bottom-2 right-2 flex gap-2">
+      @for (category of helpinho.categories; let i = $index; track category) {
+        <div
+          class="bg-primary-100 text-primary-700 rounded-2xl p-2 text-xs font-semibold"
+          *ngIf="i < 2"
+        >
+          {{ generateCategoryBadge(category) }}
+        </div>
+        <div
+          class="bg-primary-100 text-primary-700 rounded-2xl p-2 text-xs font-semibold"
+          *ngIf="i === 2"
+        >
+          + {{ helpinho.categories.length - 2 }}
+        </div>
+      }
+    </div>
+  </div>
+  <div class="p-8">
+    <div class="flex items-center gap-2">
+      <span
+        class="inline-block size-8 overflow-hidden rounded-full bg-gray-100"
+      >
+        <svg
+          class="h-full w-full text-gray-300"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"
+          />
+        </svg>
+      </span>
+      <div class="flex-col">
+        <div class="font-semibold text-neutral-700 lg:text-sm">
+          {{ helpinho.user ? helpinho.user.name : "Nome" }}
+        </div>
+        <div class="font-base text-neutral-500 lg:text-sm">
+          {{ helpinho.user ? helpinho.user.email : "Email" }}
+        </div>
+      </div>
+      <div class="ml-auto">
+        <a
+          [routerLink]="'/helpinhos/' + helpinho.id"
+          class="text-primary-700 inline-flex gap-2 font-semibold"
+        >
+          Ver
+
+          <svg
+            width="20"
+            class="stroke-primary-700"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M16 11V17C16 17.5304 15.7893 18.0391 15.4142 18.4142C15.0391 18.7893 14.5304 19 14 19H3C2.46957 19 1.96086 18.7893 1.58579 18.4142C1.21071 18.0391 1 17.5304 1 17V6C1 5.46957 1.21071 4.96086 1.58579 4.58579C1.96086 4.21071 2.46957 4 3 4H9M13 1H19M19 1V7M19 1L8 12"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-4 space-y-1">
+      <div class="text-2xl font-bold text-neutral-900">
+        {{ helpinho.title }}
+      </div>
+      <div class="font-base text-neutral-600">{{ helpinho.description }}</div>
+    </div>
+
+    <div class="isolate mt-5 flex overflow-hidden">
+      @for (id of helperIds; track id) {
+        <span
+          class="inline-block size-8 overflow-hidden rounded-full bg-gray-100"
+        >
+          <svg
+            class="h-full w-full text-gray-300"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"
+            />
+          </svg>
+        </span>
+      }
+    </div>
+  </div>
+</div>
