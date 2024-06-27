@@ -1,0 +1,15 @@
+<div class="relative w-full overflow-hidden">
+  <div class="carousel-inner animate-scroll flex">
+    @for (item of items; track index; let index = $index) {
+      <div
+        class="mx-4 flex-none rounded-2xl bg-white bg-opacity-30 px-4 py-4 sm:w-auto"
+      >
+        <div
+          class="text-primary-700 flex items-center gap-2 lg:text-neutral-700"
+        >
+          <img class="size-5 h-5 w-5" src="/checkmark.png" />{{ item }}
+        </div>
+      </div>
+    }
+  </div>
+</div>
