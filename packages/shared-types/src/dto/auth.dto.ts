@@ -19,7 +19,13 @@ export class SignupDto {
   email: string;
 
   @IsString()
-  @IsStrongPassword()
+  @IsStrongPassword(
+    {},
+    {
+      message:
+        "Senha deve conter 8 caracteres, uma letra maiúscula, minúscula, um número e um caractere especial.",
+    }
+  )
   password: string;
 
   @IsNumberString({}, { message: "Telefone inválido" })
