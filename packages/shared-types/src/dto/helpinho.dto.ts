@@ -48,3 +48,12 @@ export class GetHelpinhoDto {
   @IsOptional()
   category: string;
 }
+
+export class ListHelpinhoQuery {
+  @IsString()
+  title?: string;
+  @IsString()
+  category?: string;
+  @IsString()
+  cursor?: string;
+}
