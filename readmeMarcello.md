@@ -21,7 +21,7 @@ O desenvolvimento do backend se mostrou simples, devido a minha escolha de utili
 
 O único real desafio encontrado foi realizar a administração de segredos entre a AWS e o Serverless (através do arquivo de config). No fim, optei pela administração manual dos segredos, utilizando um plugin do Serverless Framework e meu próprio arquivo .env.
 
-Quanto a implementação na AWS, decidi por fazer uso do serviço de buckets S3 e banco de dados DynamoDB. Quanto ao S3, nada fora do normal, é um serviço de fácil administração e integração. No caso do DynamoDB, eu a primeira vista reconheci o projeto como um caso de database relacional (Usuários possuem helpinhos, que por sua vez possuem doações e que por sua vez são de autoria dos mesmos usários). Porém, eu senti que seria uma boa oportunidade de aprendizado e desafio desenvolver o projeto utilizando um recurso da stack da empresa. No final, após algumas batida de cabeça, comecei a compreender melhor como funciona o serviço e como aplicá-lo de maneira correta.
+Quanto a implementação na AWS, decidi por fazer uso do serviço de buckets S3 e banco de dados DynamoDB. Quanto ao S3, nada fora do normal, é um serviço de fácil administração e integração. No caso do DynamoDB, eu a primeira vista reconheci o projeto como um caso de database relacional (Usuários possuem helpinhos, que por sua vez possuem doações e que por sua vez são de autoria dos mesmos usários). Porém, eu senti que seria uma boa oportunidade de aprendizado e desafio desenvolver o projeto utilizando um recurso da stack da empresa. No final, após algumas batidas de cabeça, comecei a compreender melhor como funciona o serviço e como aplicá-lo de maneira correta.
 
 Esperamos as funcionalidades:
 
