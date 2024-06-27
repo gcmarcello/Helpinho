@@ -13,7 +13,6 @@ export class UploadService {
   mTypes = mimeType;
 
   upload(file: File) {
-    console.log(file);
     return this.http
       .post<GetUploadLinkResponse>(environment.apiUrl + "/files/presigned/", {
         mimeType: file.type,
@@ -21,7 +20,6 @@ export class UploadService {
       })
       .pipe(
         switchMap((r) => {
-          console.log(r);
           return this.http
             .put(r.url, file, {
               headers: {
@@ -30,7 +28,7 @@ export class UploadService {
             })
             .pipe(
               map(() => {
-                return r.url;
+                return r.url.split("?")[0];
               })
             );
         })
