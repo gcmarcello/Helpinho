@@ -25,6 +25,7 @@
     "ngx-cookie-service": "^18.0.0",
     "ngx-reactive-form-class-validator": "^1.8.1",
     "jose": "^5.4.1",
+    "primeng": "^17.18.1",
     "shared-types": "*"
   },
   "devDependencies": {
