@@ -2,13 +2,13 @@
 import { Injectable } from "@nestjs/common";
 import * as bcrypt from "bcrypt";
 import { SignupDto, User } from "shared-types";
-import { dynamo } from "src/infrastructure/database";
+import { dynamo, usersTable } from "src/infrastructure/database";
 
 @Injectable()
 export class UserService {
   async findUserByEmail(email: string) {
     const users = await dynamo().query({
-      TableName: "users",
+      TableName: usersTable,
       IndexName: "EmailIndex",
       KeyConditionExpression: "email = :email",
       ExpressionAttributeValues: {
@@ -23,7 +23,7 @@ export class UserService {
 
   async findUserById(id: string) {
     const user = await dynamo().getItem({
-      TableName: "users",
+      TableName: usersTable,
       Key: {
         id: { S: id },
       },
@@ -44,7 +44,7 @@ export class UserService {
     };
 
     await dynamo().putItem({
-      TableName: "users",
+      TableName: usersTable,
       Item: {
         id: { S: newUser.id },
         email: { S: newUser.email },
