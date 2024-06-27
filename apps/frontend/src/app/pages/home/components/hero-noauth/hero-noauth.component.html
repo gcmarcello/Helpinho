@@ -3,14 +3,21 @@
 >
   <div class="flex flex-col gap-6">
     <div class="flex flex-col gap-6">
-      <div
-        class="me-auto flex gap-6 rounded-2xl bg-white bg-opacity-40 px-5 py-3 text-lg text-neutral-700"
-      >
+      <div class="block gap-4">
         <div
-          class="text-primary-700 flex items-center gap-2 lg:text-neutral-700"
+          class="my-auto hidden gap-4 rounded-2xl bg-white bg-opacity-30 px-4 py-4 sm:w-auto md:inline-flex"
         >
-          <img class="size-5" src="/checkmark.png" />Registro Grátis
+          @for (item of items; track item) {
+            <div
+              class="text-primary-700 flex items-center gap-2 lg:text-neutral-700"
+            >
+              <img class="size-5 h-5 w-5" src="/checkmark.png" />{{ item }}
+            </div>
+          }
         </div>
+      </div>
+      <div class="block md:hidden">
+        <app-carousel [items]="items"></app-carousel>
       </div>
       <div class="text-[32px] font-light text-neutral-900 md:text-[64px]">
         Faça a diferença com apenas
