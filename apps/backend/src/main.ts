@@ -3,6 +3,7 @@ import { AppModule } from "./app.module";
 import { Callback, Context, Handler } from "aws-lambda";
 import { configure } from "@codegenie/serverless-express";
 import { FormErrorFilter } from "./infrastructure/filters/form-error.filter";
+import { ValidationPipe } from "@nestjs/common";
 
 let server: Handler;
 
@@ -10,6 +11,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
 
   app.useGlobalFilters(new FormErrorFilter());
+
+  app.useGlobalPipes(new ValidationPipe());
 
   await app.init();
 
