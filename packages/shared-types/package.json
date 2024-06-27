@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "libuilder --watch ./libuilder.mjs & tsc -w",
-    "build": "tsc"
+    "build": "libuilder ./libuilder.mjs && tsc"
   },
   "keywords": [],
   "author": "",
