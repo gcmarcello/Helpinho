@@ -73,7 +73,7 @@
     ></div>
 
     @for (helpinho of helpinhos; track helpinho.id) {
-      <app-helpinho-card [helpinho]="helpinho" />
+      <app-helpinho-card class="flex" [helpinho]="helpinho" />
     } @empty {
       <div class="flex w-full">
         <p class="text-lg text-gray-500">Nenhum helpinho encontrado</p>
