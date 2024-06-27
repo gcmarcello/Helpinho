@@ -5,6 +5,17 @@ service: helpinho
 plugins:
   - serverless-offline
   - serverless-plugin-monorepo
+  - serverless-dotenv-plugin
+
+custom:
+  serverless-offline:
+    host: 0.0.0.0
+    noPrependStageInUrl: true
+  stage: "${opt:stage, self:provider.stage}"
+  usersTable: "${self:service}-users-${self:custom.stage}"
+  helpinhosTable: "${self:service}-helpinhos-${self:custom.stage}"
+  helpsTable: "${self:service}-helps-${self:custom.stage}"
+  uploadBucket: "${self:service}-bucket-${self:custom.stage}"
 
 provider:
   name: aws
@@ -33,19 +44,7 @@ provider:
         - arn:aws:dynamodb:${self:provider.region}:*:table/helps
         - arn:aws:dynamodb:${self:provider.region}:*:table/helps/index/*
         - arn:aws:s3:::helpinho-uploads-m/*
-  environment:
-    JWT_SECRET: ${env:JWT_SECRET}
-    NODE_ENV: ${opt:stage, self:provider.stage}
-
-custom:
-  serverless-offline:
-    host: 0.0.0.0
-    noPrependStageInUrl: true
-  stage: "${opt:stage, self:provider.stage}"
-  usersTable: "${self:service}-users-${self:custom.stage}"
-  helpinhosTable: "${self:service}-helpinhos-${self:custom.stage}"
-  helpsTable: "${self:service}-helps-${self:custom.stage}"
-  uploadBucket: "${self:service}-bucket-${self:custom.stage}"
+  environment: ${file(configs.js)}
 
 functions:
   main:
@@ -103,17 +102,25 @@ resources:
       Properties:
         TableName: ${self:custom.helpsTable}
         AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
           - AttributeName: helpinhoId
             AttributeType: S
           - AttributeName: userId
             AttributeType: S
         KeySchema:
-          - AttributeName: helpinhoId
+          - AttributeName: id
             KeyType: HASH
         GlobalSecondaryIndexes:
           - IndexName: UserIdIndex
             KeySchema:
               - AttributeName: userId
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: HelpinhoIdIndex
+            KeySchema:
+              - AttributeName: helpinhoId
                 KeyType: HASH
             Projection:
               ProjectionType: ALL
