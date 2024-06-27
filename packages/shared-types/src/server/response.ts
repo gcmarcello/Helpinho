@@ -14,7 +14,7 @@ export interface LoginResponse {
 
 export type UserInfoResponse = User;
 
-export type UserHelpHelpinhoResponse = User[];
+export type UserHelpHelpinhoResponse = Helpinho[];
 export type CreateHelpinhoResponse = Helpinho;
 
 export type GetUploadLinkResponse = { url: string };
