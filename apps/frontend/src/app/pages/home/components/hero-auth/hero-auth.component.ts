@@ -1,14 +1,6 @@
-import {
-  Component,
-  signal,
-  effect,
-  OnInit,
-  Signal,
-  WritableSignal,
-} from "@angular/core";
+import { Component, signal } from "@angular/core";
 import { ButtonComponent } from "../../../../components/button/button.component";
 import { CommonModule } from "@angular/common";
-import { UserService } from "../../../../services/user.service";
 import { SpinnerComponent } from "../../../../components/loading/components/spinner.component";
 import { HelpinhoService } from "../../../../services/helpinho.service";
 import { UserHelpHelpinhoResponse } from "shared-types";
@@ -22,17 +14,29 @@ import { UserHelpHelpinhoResponse } from "shared-types";
 })
 export class HeroAuthComponent {
   userInfo: any;
-  helpinhos = signal<UserHelpHelpinhoResponse["helpinhos"] | null>(null);
-  helps = signal<UserHelpHelpinhoResponse["helps"] | null>(null);
+  helpinhos = signal<UserHelpHelpinhoResponse | null>(null);
+  helps = signal<number | null>(null);
   constructor(private helpinhoService: HelpinhoService) {}
+
+  calculateMyFundings() {
+    const helps = this.helpinhos()?.flatMap((h) => h.helps);
+
+    const helpsAmounts = helps?.map((h) => Number(h?.amount)!)!;
+
+    const total = helpsAmounts?.reduce((acc, curr) => acc + curr, 0);
+
+    return total;
+  }
 
   ngOnInit() {
     this.userInfo = JSON.parse(localStorage.getItem("userInfo")!);
     this.helpinhoService
       .getUserHelpsAndHelpinhos()
       .subscribe((data: UserHelpHelpinhoResponse) => {
-        this.helpinhos.set(data.helpinhos);
-        return this.helps.set(data.helps);
+        this.helpinhos.set(data);
+        return this.helps.set(
+          data.filter((helpinho) => Boolean(helpinho.helps?.length)).length
+        );
       });
   }
 }
