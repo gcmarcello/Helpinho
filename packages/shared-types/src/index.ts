@@ -1,4 +1,5 @@
 export * from './dto/auth.dto';
+export * from './dto/help.dto';
 export * from './dto/helpinho.dto';
 export * from './dto/upload.dto';
 export * from './entities/categories';
