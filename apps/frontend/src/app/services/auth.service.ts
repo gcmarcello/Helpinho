@@ -1,5 +1,4 @@
 import { Inject, Injectable } from "@angular/core";
-import { CookieService } from "ngx-cookie-service";
 import { BehaviorSubject, EMPTY, Observable, catchError, map } from "rxjs";
 import { Router } from "@angular/router";
 import * as jose from "jose";
@@ -19,19 +18,20 @@ export class AuthService {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private http: HttpClient,
-    private cookieService: CookieService,
     private router: Router
   ) {
-    const cookie = this.captureSession();
+    const untrustedToken = this.localStorage.getItem("token");
 
-    console.log(cookie);
+    const trustedToken = this.validateSession(untrustedToken);
 
-    if (this.validateSession(cookie)) {
-      this.setSession(cookie);
+    if (trustedToken) {
+      this.setSession(trustedToken);
     } else {
       this.removeSession();
     }
   }
+
+  localStorage = this.document.defaultView?.localStorage!;
 
   login(form: ClassValidatorFormGroup) {
     return this.http
@@ -39,11 +39,8 @@ export class AuthService {
       .pipe(
         map((response) => {
           const token = response.token;
-          this.document.defaultView?.localStorage?.setItem(
-            "userInfo",
-            JSON.stringify(response)
-          );
-          this.cookieService.set("token", token, { expires: 1 });
+          this.localStorage.setItem("userInfo", JSON.stringify(response));
+          this.localStorage.setItem("token", token);
           this.tokenStore.next(token);
           return form.value;
         }),
@@ -59,7 +56,7 @@ export class AuthService {
       .pipe(
         map((response) => {
           const token = response;
-          this.cookieService.set("token", response.token, { expires: 1 });
+          this.localStorage.setItem("token", response.token);
           this.document.defaultView?.localStorage?.setItem(
             "userInfo",
             JSON.stringify(response)
@@ -83,7 +80,7 @@ export class AuthService {
   }
 
   captureSession(): string {
-    return this.cookieService.get("token");
+    return this.localStorage.getItem("token")!;
   }
 
   setSession(token: string) {
@@ -93,10 +90,10 @@ export class AuthService {
   removeSession() {
     this.tokenStore.next("");
     this.document.defaultView?.localStorage?.clear();
-    this.cookieService.delete("token");
+    this.localStorage.removeItem("token");
   }
 
-  validateSession(token: string): boolean {
+  validateSession(token: string | null): string | false {
     if (!token) return false;
 
     try {
@@ -106,6 +103,6 @@ export class AuthService {
       return false;
     }
 
-    return true;
+    return token;
   }
 }
