@@ -5,7 +5,7 @@
   >
     {{ label }}
   </label>
-  <div class="mb-5 mt-2">
+  <div class="mt-2">
     <select
       (change)="parseInputErrors(formGroup, name)"
       type="select"
@@ -14,7 +14,7 @@
       [formControlName]="name"
       [ngClass]="getInputStyle()"
     >
-      <option>Selecionar</option>
+      <option value="">Selecionar</option>
       @for (option of options; track option.value) {
         <option [value]="option.value">{{ option.label }}</option>
       }
