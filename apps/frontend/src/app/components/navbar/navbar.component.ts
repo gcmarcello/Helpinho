@@ -7,6 +7,7 @@ import { CommonModule, DOCUMENT } from "@angular/common";
 import { Subscription, map } from "rxjs";
 import { AuthService } from "../../services/auth.service";
 import { UserService } from "../../services/user.service";
+import { RouterModule } from "@angular/router";
 
 @Component({
   selector: "app-navbar",
@@ -17,6 +18,7 @@ import { UserService } from "../../services/user.service";
     NavigationLinksComponent,
     ProfileActionsComponent,
     CommonModule,
+    RouterModule,
   ],
   templateUrl: "./navbar.component.html",
 })

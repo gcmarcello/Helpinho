@@ -1,10 +1,12 @@
 <div
   class="lg:py-auto sticky z-50 flex justify-between bg-transparent p-4 lg:px-16"
 >
-  <div class="flex items-center gap-2 lg:justify-center">
-    <img class="hidden h-20 lg:block" src="/text-logo.png" />
-    <img class="block h-12 lg:hidden" src="/logo.png" />
-  </div>
+  <a [routerLink]="['/']" routerLinkActive="active"
+    ><div class="flex items-center gap-2 lg:justify-center">
+      <img class="hidden h-20 lg:block" src="/text-logo.png" />
+      <img class="block h-12 lg:hidden" src="/logo.png" /></div
+  ></a>
+
   <app-navigation-links class="flex items-center" />
   <app-auth-actions
     *ngIf="!isLoggedIn"
